@@ -37,7 +37,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: dist
-        path: dist/
+        path: ./dist
 
   pypi-publish:
     name: Upload release to PyPI
@@ -56,6 +56,6 @@ jobs:
 
     - name: List files in dist/
       run: ls -la dist/
-      
+
     - name: Publish package distributions to PyPI
       uses: pypa/gh-action-pypi-publish@release/v1
