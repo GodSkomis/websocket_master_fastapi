@@ -1,0 +1,4 @@
+
+
+class NavitagionError(Exception):
+    pass
