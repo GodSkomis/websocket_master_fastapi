@@ -5,14 +5,14 @@ from fastapi import WebSocket, FastAPI
 from fastapi.testclient import TestClient
 from pydantic import BaseModel
 
-from src.ws_master.event import WebSocketEvent # WebSocketEvent is the main class for handling WebSocket messages
-from src.ws_master.event import Response # Response is a class that is filled by AbstractStrategy to determine what and to whom should be sent a result of processing
+from ws_master.event import WebSocketEvent # WebSocketEvent is the main class for handling WebSocket messages
+from ws_master.event import Response # Response is a class that is filled by AbstractStrategy to determine what and to whom should be sent a result of processing
 
-from src.ws_master.router import WebSocketRouter # WebSocketRouter connects WebSocket requests with WebSocketEvent using keywords in the request. The "route" key links to WebSocketHandler, while the "event" key links to WebSocketEvent, thereby directing the request to the appropriate handler
-from src.ws_master.injector import Injector # Injector allows inserting data into the WebSocketEvent interface
+from ws_master.router import WebSocketRouter # WebSocketRouter connects WebSocket requests with WebSocketEvent using keywords in the request. The "route" key links to WebSocketHandler, while the "event" key links to WebSocketEvent, thereby directing the request to the appropriate handler
+from ws_master.injector import Injector # Injector allows inserting data into the WebSocketEvent interface
 
-from src.ws_master.services import WebSocketService # WebSocketService allows linking various WebSocketClients with a primary key (pk)
-from src.ws_master.client import WebSocketClient # WebSocketClient allows you to manage the WebSocket and its connection. It also receives JSON from the WebSocket and attempts to process it
+from ws_master.services import WebSocketService # WebSocketService allows linking various WebSocketClients with a primary key (pk)
+from ws_master.client import WebSocketClient # WebSocketClient allows you to manage the WebSocket and its connection. It also receives JSON from the WebSocket and attempts to process it
 
 
 # Setup simple log settings
