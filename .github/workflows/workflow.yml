@@ -29,6 +29,10 @@ jobs:
     - name: Build
       run: |
         python -m poetry build
+
+    - name: List files in dist/
+      run: ls -la dist/
+
     - name: Upload Build Artifact
       uses: actions/upload-artifact@v4
       with:
@@ -49,5 +53,9 @@ jobs:
       uses: actions/download-artifact@v4
       with:
         name: dist
+
+    - name: List files in dist/
+      run: ls -la dist/
+      
     - name: Publish package distributions to PyPI
       uses: pypa/gh-action-pypi-publish@release/v1
