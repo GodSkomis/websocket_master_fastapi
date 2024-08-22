@@ -48,7 +48,7 @@ class WebSocketClient(AbstractWebSocketClient):
         try:
             while not self._is_closed:
                 request_data: Dict = await self._websocket.receive_json()
-                request = WebSocketRequest(**request_data)
+                request = await self.prepare(request_data)
                 await self.handle(request)
         except WebSocketDisconnect:
             await self.disconnect()
@@ -67,3 +67,6 @@ class WebSocketClient(AbstractWebSocketClient):
         if not response:
             response = event.response_builder.get_result()
         await response.execute(self._websocket)
+
+    async def prepare(self, request_data: Dict) -> WebSocketRequest:
+        return WebSocketRequest(**request_data)
