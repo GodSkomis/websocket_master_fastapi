@@ -1,5 +1,5 @@
 from typing import Dict,TYPE_CHECKING, Optional
-from abc import ABC
+from abc import ABC, abstractmethod
 
 from fastapi import WebSocket, WebSocketDisconnect
 from fastapi.websockets import WebSocketState
@@ -11,7 +11,13 @@ if TYPE_CHECKING:
     from ws_master.injector import Injector
 
 
-class WebSocketClient(ABC):
+class AbstractWebSocketClient(ABC):
+    @abstractmethod
+    async def handle(self, request: WebSocketRequest) -> None:
+        pass
+    
+
+class WebSocketClient(AbstractWebSocketClient):
     _websocket: WebSocket
     _pk: int | str
     _router: "WebSocketRouter"
