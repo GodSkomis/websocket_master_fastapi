@@ -60,6 +60,9 @@ class WebSocketClient(AbstractWebSocketClient):
                 except CriticalEventError as ex:
                     await self.send_err(str(ex))
                     break
+                except Exception as ex:
+                    await self.send_err("Internal Server Error")
+                    break
             await self.disconnect()
         except WebSocketDisconnect:
             await self.disconnect()
