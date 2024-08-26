@@ -51,10 +51,10 @@ class WebSocketClient(AbstractWebSocketClient):
                 request_data: Dict = await self._websocket.receive_json()
                 try:
                     request = await self.prepare(request_data)
+                    await self.handle(request)
                 except ValidationError as ex:
                     await self._websocket.send_json(ex)
                     continue
-                await self.handle(request)
         except WebSocketDisconnect:
             await self.disconnect()
 
