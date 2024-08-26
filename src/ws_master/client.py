@@ -6,6 +6,8 @@ from fastapi.websockets import WebSocketState
 from pydantic import ValidationError
 
 from ws_master.schemas import WebSocketRequest
+from ws_master.exceptions import EventError, CriticalEventError
+
 
 if TYPE_CHECKING:
     from ws_master.router import WebSocketRouter
@@ -52,9 +54,13 @@ class WebSocketClient(AbstractWebSocketClient):
                 try:
                     request = await self.prepare(request_data)
                     await self.handle(request)
-                except ValidationError as ex:
+                except ValidationError | EventError  as ex:
                     await self._websocket.send_json(ex)
                     continue
+                except CriticalEventError as ex:
+                    await self._websocket.send_json(ex)
+                    break
+            await self.disconnect()
         except WebSocketDisconnect:
             await self.disconnect()
 
