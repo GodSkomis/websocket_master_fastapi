@@ -3,6 +3,7 @@ from abc import ABC, abstractmethod
 
 from fastapi import WebSocket, WebSocketDisconnect
 from fastapi.websockets import WebSocketState
+from pydantic import ValidationError
 
 from ws_master.schemas import WebSocketRequest
 
@@ -48,7 +49,11 @@ class WebSocketClient(AbstractWebSocketClient):
         try:
             while not self._is_closed:
                 request_data: Dict = await self._websocket.receive_json()
-                request = await self.prepare(request_data)
+                try:
+                    request = await self.prepare(request_data)
+                except ValidationError as ex:
+                    await self._websocket.send_json(ex)
+                    continue
                 await self.handle(request)
         except WebSocketDisconnect:
             await self.disconnect()
