@@ -12,6 +12,9 @@ class WebSocketRequest(BaseModel):
 	model_config = ConfigDict(from_attributes=True)
 
 
-class WebSocketResponse(WebSocketRequest):
+class WebSocketErrorResponse(BaseModel):
 	error: Optional[str] = None
  
+ 
+class WebSocketResponse(WebSocketRequest, WebSocketErrorResponse):
+    pass

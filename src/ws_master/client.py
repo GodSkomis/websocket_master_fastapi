@@ -5,7 +5,7 @@ from fastapi import WebSocket, WebSocketDisconnect
 from fastapi.websockets import WebSocketState
 from pydantic import ValidationError
 
-from ws_master.schemas import WebSocketRequest
+from ws_master.schemas import WebSocketRequest, WebSocketErrorResponse
 from ws_master.exceptions import EventError, CriticalEventError
 
 
@@ -55,10 +55,10 @@ class WebSocketClient(AbstractWebSocketClient):
                     request = await self.prepare(request_data)
                     await self.handle(request)
                 except ValidationError | EventError  as ex:
-                    await self._websocket.send_json(ex)
+                    await self.send_err(str(ex))
                     continue
                 except CriticalEventError as ex:
-                    await self._websocket.send_json(ex)
+                    await self.send_err(str(ex))
                     break
             await self.disconnect()
         except WebSocketDisconnect:
@@ -81,3 +81,8 @@ class WebSocketClient(AbstractWebSocketClient):
 
     async def prepare(self, request_data: Dict) -> WebSocketRequest:
         return WebSocketRequest(**request_data)
+
+    async def send_err(self, err: str) -> None:
+        response = WebSocketErrorResponse(error=err)
+        await self._websocket.send_json(response.model_dump())
+        
