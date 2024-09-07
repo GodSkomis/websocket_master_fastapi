@@ -36,4 +36,4 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
-ws_master = "file_builder:main"
+ws-master = "ws_master.file_builder:main"
