@@ -1,4 +1,5 @@
 # WebSocket Master FastAPI
+[![PyPI version](https://badge.fury.io/py/websocket-master-fastapi.svg)](https://badge.fury.io/py/websocket-master-fastapi)
 
 WebSocket Master FastAPI is a Python library that simplifies working with WebSockets in FastAPI applications.
 
