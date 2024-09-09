@@ -50,9 +50,8 @@ class ResponseBuilder:
         response = WebSocketResponse.model_validate(response)
         return response
 	
-    def create_ok_response(self) -> None:
+    def create_ok_response(self) -> WebSocketResponse:
         response = self._request.model_copy()
         response.data = {"result": "OK"}
-        response = WebSocketResponse.model_validate(response)
-        return response
+        return WebSocketResponse.model_validate(response)
         
