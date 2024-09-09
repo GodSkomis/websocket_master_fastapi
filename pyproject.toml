@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "websocket-master-fastapi"
 packages = [{include = "ws_master", from = "src"}]
-version = "0.1.4"
+version = "0.1.41"
 description = "Simple package to create a weboscket server"
 authors = ["Pavel Sierikov <60714418+GodSkomis@users.noreply.github.com>"]
 readme = "README.md"
