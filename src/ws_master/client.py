@@ -54,7 +54,7 @@ class WebSocketClient(AbstractWebSocketClient):
                 try:
                     request = await self.prepare(request_data)
                     await self.handle(request)
-                except ValidationError | EventError  as ex:
+                except (ValidationError, EventError)  as ex:
                     await self.send_err(str(ex))
                     continue
                 except CriticalEventError as ex:
