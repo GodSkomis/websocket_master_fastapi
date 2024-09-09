@@ -33,7 +33,7 @@ class {self.app_name.capitalize()}Event(WebSocketEvent[...]):
     __schema__: BaseModel = 
     
     async def handle(self) -> Response | None:
-        pass
+        raise NotImplementedError(f"'{{self.__class__}}' have not implemented method 'handle'")
 """
         with open(os.path.join(self.app_folder_path, "handler.py"), 'w+') as file:
             file.write(file_content)
@@ -43,7 +43,7 @@ class {self.app_name.capitalize()}Event(WebSocketEvent[...]):
         """
         schemas_folder_path = os.path.join(self.app_folder_path, "schemas")
         os.mkdir(schemas_folder_path)
-        with open(os.path.join(schemas_folder_path, "request_schrmas.py"), 'w+') as file:
+        with open(os.path.join(schemas_folder_path, "request_schemas.py"), 'w+') as file:
             file.write(file_content)
         with open(os.path.join(schemas_folder_path, "response_schemas.py"), 'w+') as file:
             file.write(file_content)
